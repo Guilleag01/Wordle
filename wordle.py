@@ -8,7 +8,7 @@ def main():
     palabras = loadPalabras("palabras.json")
     print("Introduce el número de letras que quieres: ")
     numLetras = input()
-    palabra = "vaduz" # random.choice(palabras[numLetras])
+    palabra = random.choice(palabras[numLetras])
     tablero = generateTablero(int(numLetras))
     play(tablero, palabra, palabras)
     # printTablero(tablero, palabra)
@@ -43,12 +43,13 @@ def printTablero(tablero, palabra):
         print("─", end="")
     print("┐")
     
-    for i in range(len(palabra)):
+    for i in range(len(palabra) + 1):
         print("│", end="")
         for j in range(len(palabra)):
             if tablero[i][j] == palabra[j]:
                 termcolor.cprint(tablero[i][j], 'white', 'on_green', end="")
-            elif palabra[:j].count(tablero[i][j]) == tablero[i][:j].count(tablero[i][j]):
+            elif palabra.count(tablero[i][j]) == tablero[i][:j + 1].count(tablero[i][j]) or palabra.count(tablero[i][j]) == tablero[i].count(tablero[i][j]):
+                # print(" -" + str(palabra[0:j+1].count(tablero[i][j])) + "=" + str(tablero[i].count(tablero[i][j])) + "- ", end="")
                 termcolor.cprint(tablero[i][j], 'white','on_yellow', end="")
             else:
                 print(tablero[i][j], end="")
@@ -62,12 +63,12 @@ def printTablero(tablero, palabra):
     print(palabra)
     
 def checkPalabra(guess, palabra, diccionario):
+    if not guess in diccionario[str(len(guess))]:
+        print("Esa palabra no existe")
+        return False 
     if not (len(guess) == len(palabra)):
         print("Longitud incorrecta")
         return False
-    if not guess in diccionario[str(len(palabra))]:
-        print("Esa palabra no existe")
-        return False 
     return True
 
 if __name__ == "__main__":
