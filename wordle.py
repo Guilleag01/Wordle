@@ -8,7 +8,7 @@ def main():
     palabras = loadPalabras("palabras.json")
     print("Introduce el número de letras que quieres: ")
     numLetras = input()
-    palabra = random.choice(palabras[numLetras])
+    palabra = "casas" # random.choice(palabras[numLetras])
     tablero = generateTablero(int(numLetras))
     play(tablero, palabra, palabras)
     printTablero(tablero, palabra)
@@ -37,6 +37,11 @@ def play(tablero, palabra, diccionario):
             tablero[guesses][i] = guess[i]
 
         guesses += 1
+
+        if guess == palabra:
+            print("HAS GANADO")
+            break
+        
 
 def printTablero(tablero, palabra):
     print("┌", end="")
@@ -72,6 +77,8 @@ def checkPalabra(guess, palabra, diccionario):
         print("Longitud incorrecta")
         return False
     return True
+
+
 
 if __name__ == "__main__":
     main()
