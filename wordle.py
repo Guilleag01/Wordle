@@ -8,7 +8,7 @@ def main():
     palabras = loadPalabras("palabras.json")
     print("Introduce el número de letras que quieres: ")
     numLetras = input()
-    palabra = "casas" # random.choice(palabras[numLetras])
+    palabra = random.choice(palabras[numLetras])
     tablero = generateTablero(int(numLetras))
     play(tablero, palabra, palabras)
     printTablero(tablero, palabra)
