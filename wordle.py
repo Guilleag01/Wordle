@@ -11,7 +11,8 @@ def main():
     palabra = random.choice(palabras[numLetras])
     tablero = generateTablero(int(numLetras))
     play(tablero, palabra, palabras)
-    # printTablero(tablero, palabra)
+    printTablero(tablero, palabra)
+    print("La palabra era: " + palabra)
 
 def loadPalabras(filename):
     file = open(filename, 'r')
@@ -48,7 +49,7 @@ def printTablero(tablero, palabra):
         for j in range(len(palabra)):
             if tablero[i][j] == palabra[j]:
                 termcolor.cprint(tablero[i][j], 'white', 'on_green', end="")
-            elif palabra.count(tablero[i][j]) == tablero[i][:j + 1].count(tablero[i][j]) or palabra.count(tablero[i][j]) == tablero[i].count(tablero[i][j]):
+            elif tablero[i][j] in palabra[:j + 1]:
                 # print(" -" + str(palabra[0:j+1].count(tablero[i][j])) + "=" + str(tablero[i].count(tablero[i][j])) + "- ", end="")
                 termcolor.cprint(tablero[i][j], 'white','on_yellow', end="")
             else:
@@ -60,7 +61,7 @@ def printTablero(tablero, palabra):
         print("─", end="")
     print("┘")
 
-    print(palabra)
+    # print(palabra)
     
 def checkPalabra(guess, palabra, diccionario):
     if not guess in diccionario[str(len(guess))]:
