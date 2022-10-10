@@ -21,7 +21,7 @@ def loadPalabras(filename):
     return jFile
 
 def generateTablero(tamano):
-    return [[" " for i in range(tamano) ] for j in range(tamano + 1)]
+    return [[" " for i in range(tamano)] for j in range(tamano + 1)]
 
 def play(tablero, palabra, diccionario):
     guesses = 0
@@ -47,10 +47,11 @@ def printTablero(tablero, palabra):
     for i in range(len(palabra) + 1):
         print("│", end="")
         for j in range(len(palabra)):
+            # print(palabra.count(tablero[i][j]), end="")
             if tablero[i][j] == palabra[j]:
                 termcolor.cprint(tablero[i][j], 'white', 'on_green', end="")
-            elif tablero[i][j] in palabra[:j + 1]:
-                # print(" -" + str(palabra[0:j+1].count(tablero[i][j])) + "=" + str(tablero[i].count(tablero[i][j])) + "- ", end="")
+            elif tablero[i][:j + 1].count(tablero[i][j]) <= palabra.count(tablero[i][j]):
+                
                 termcolor.cprint(tablero[i][j], 'white','on_yellow', end="")
             else:
                 print(tablero[i][j], end="")
